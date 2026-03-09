@@ -49,10 +49,10 @@ const content = {
     name: "Massimo Caria",
     role: "Innovation Bridge",
     headline: "Affianco i Manager del Turismo nella Sfida dell'Innovazione e della Digitalizzazione.",
-    subheadline: "Competenze verticali nell'Hospitality e visione strategica per guidare le Destinazioni attraverso le sfide dell'era digitale.",
+    subheadline: "Il nuovo ecosistema formativo digitale interamente dedicato a destinazioni e territori",
     missionTitle: "La mia mission nel settore",
     missionText: "Orientare i Destination Manager verso un futuro digitale, innovativo e sostenibile, favorendo le sinergie tra gli stakeholder del settore turistico, sottolineando l'importanza dei dati e della tecnologia per decisioni strategiche e promuovendo una cultura di agilità e innovazione nelle nostre destinazioni.",
-    ctaPrimary: "Prenota Call Strategica",
+    ctaPrimary: "Esplora l'Academy",
     ctaSecondary: "Inizia l'Assessment",
     calendarLink: "https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1moQmdvh9-0wiTeuce3YjVz3m39qKRP15nS7HqE_rpd2SBOzEGATaf4RCGDvkDY9J0FDZ5CfZJ",
   },
@@ -286,7 +286,7 @@ const content = {
   },
   footer: {
     linkedin: "https://linkedin.com/in/massimocaria",
-    email: "mailto:max@intellitalia.it",
+    email: "mailto:max@destinova.it",
     destinova: "https://destinova.it",
     copyright: `© ${new Date().getFullYear()} Massimo Caria. Tutti i diritti riservati.`
   }
@@ -756,8 +756,8 @@ function DestinovaModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
       ]}
       bottomCtaTitle="Pronto a trasformare la tua destinazione?"
       bottomCtaSubtitle="Scopri come l'ecosistema di Celestec può supportare il tuo territorio."
-      bottomCtaText="Visita www.celestec.com"
-      bottomCtaLink="https://www.celestec.com"
+      bottomCtaText="Richiedi Accesso"
+      bottomCtaLink={content.hero.calendarLink}
       onClose={onClose}
     />
   );
@@ -769,7 +769,7 @@ function TransformationEcosystem() {
       id: "core",
       title: "Methodology & Skills",
       radius: 220, // Increased radius for better spacing
-      color: "#45e5ed",
+      color: "#0ea5e9", // Sky blue
       items: [
         { title: "Innovation", subtitle: "Adaptive & Generative", icon: <Sparkles className="w-6 h-6" />, angle: 0 },
         { title: "Data Intelligence", subtitle: "Analysis & Dashboards", icon: <LineChart className="w-6 h-6" />, angle: 120 },
@@ -780,7 +780,7 @@ function TransformationEcosystem() {
       id: "services",
       title: "Execution & Services",
       radius: 380, // Increased radius
-      color: "#263647",
+      color: "#8b5cf6", // Purple
       items: [
         { title: "Consulting", subtitle: "Strategic Advisory", icon: <Briefcase className="w-6 h-6" />, angle: 45 },
         { title: "Coaching", subtitle: "Training & Empowerment", icon: <GraduationCap className="w-6 h-6" />, angle: 135 },
@@ -792,7 +792,7 @@ function TransformationEcosystem() {
       id: "impact",
       title: "Network & Vision",
       radius: 540, // Increased radius
-      color: "#94a3b8",
+      color: "#10b981", // Emerald
       items: [
         { title: "Network", subtitle: "Destinations & Partners", icon: <Globe className="w-6 h-6" />, angle: 90 },
         { title: "Territorial Impact", subtitle: "Sustainable Growth", icon: <MapIcon className="w-6 h-6" />, angle: 210 },
@@ -802,7 +802,7 @@ function TransformationEcosystem() {
   ];
 
   return (
-    <div className="relative w-full h-[600px] lg:h-[1200px] flex items-center justify-center overflow-hidden py-12">
+    <div className="relative w-full h-[600px] lg:h-[1300px] flex items-center justify-center overflow-hidden py-12">
       
       {/* Mobile View */}
       <div className="lg:hidden w-full px-4 space-y-8">
@@ -818,16 +818,17 @@ function TransformationEcosystem() {
         <div className="space-y-6">
           {orbits.map((orbit) => (
             <div key={orbit.id} className="space-y-4">
-              <h4 className="text-sm font-bold uppercase tracking-widest text-[#263647]/50 border-b border-[#d7d8d8] pb-2">
+              <h4 className="text-sm font-bold uppercase tracking-widest border-b pb-2" style={{ color: orbit.color, borderColor: `${orbit.color}30` }}>
                 {orbit.title}
               </h4>
               <div className="grid gap-3">
                 {orbit.items.map((item, i) => (
                   <div 
                     key={i} 
-                    className="flex items-center gap-4 p-4 rounded-2xl bg-white border border-[#d7d8d8] shadow-sm active:scale-95 transition-transform cursor-pointer"
+                    className="flex items-center gap-4 p-4 rounded-2xl bg-white shadow-sm active:scale-95 transition-transform cursor-pointer"
+                    style={{ border: `1px solid ${orbit.color}30` }}
                   >
-                    <div className="w-12 h-12 rounded-full bg-[#f8f9fa] flex items-center justify-center text-[#263647]">
+                    <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: `${orbit.color}15`, color: orbit.color }}>
                       {item.icon}
                     </div>
                     <div>
@@ -843,7 +844,7 @@ function TransformationEcosystem() {
       </div>
 
       {/* Desktop View (Orbits) */}
-      <div className="hidden lg:block relative w-[1200px] h-[1200px]">
+      <div className="hidden lg:block relative w-[1200px] h-[1300px]">
         {/* Center */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 flex flex-col items-center justify-center w-56 h-56 rounded-full bg-[#263647] text-white shadow-[0_0_60px_rgba(38,54,71,0.3)] border-8 border-white">
           <div className="text-5xl font-bold text-[#45e5ed] mb-2">MC</div>
@@ -855,14 +856,22 @@ function TransformationEcosystem() {
         {orbits.map((orbit, orbitIndex) => (
           <div 
             key={orbit.id}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-[#d7d8d8] pointer-events-none"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none"
             style={{ 
               width: orbit.radius * 2, 
               height: orbit.radius * 2,
             }}
           >
+            {/* Rotating Dashed Border */}
+            <motion.div 
+              className="absolute inset-0 rounded-full border border-dashed"
+              style={{ borderColor: `${orbit.color}50` }}
+              animate={{ rotate: orbitIndex % 2 === 0 ? 360 : -360 }}
+              transition={{ duration: 100 + orbitIndex * 30, repeat: Infinity, ease: "linear" }}
+            />
+
             {/* Orbit Label */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#f8f9fa] px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-[#263647]/40 whitespace-nowrap border border-[#d7d8d8]/50">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest whitespace-nowrap z-10" style={{ color: orbit.color, border: `1px solid ${orbit.color}50` }}>
               {orbit.title}
             </div>
 
@@ -875,23 +884,27 @@ function TransformationEcosystem() {
               return (
                 <motion.div
                   key={i}
-                  className="absolute top-1/2 left-1/2 flex flex-col items-center justify-center w-40 h-40 bg-white rounded-3xl shadow-lg border border-[#d7d8d8] cursor-pointer pointer-events-auto transition-all z-20 group"
+                  className="absolute top-1/2 left-1/2 flex flex-col items-center justify-center w-40 h-40 bg-white rounded-3xl shadow-lg cursor-pointer pointer-events-auto transition-all z-20 group"
                   style={{ 
                     x: x - 80, // Center the 160px (w-40) element
-                    y: y - 80 
+                    y: y - 80,
+                    border: `2px solid ${orbit.color}30`
                   }}
                   initial={{ y: y - 80 }}
                   animate={{ 
-                    y: [y - 80 - 5, y - 80 + 5, y - 80 - 5],
+                    y: [y - 80 - 10, y - 80 + 10, y - 80 - 10],
                   }}
                   transition={{ 
-                    duration: 4 + i, // Vary duration slightly for organic feel
+                    duration: 3 + (i % 3), // Vary duration slightly for organic feel
                     repeat: Infinity,
                     ease: "easeInOut" 
                   }}
-                  whileHover={{ scale: 1.05, zIndex: 50, borderColor: "#45e5ed", boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
+                  whileHover={{ scale: 1.05, zIndex: 50, borderColor: orbit.color, boxShadow: `0 20px 25px -5px ${orbit.color}40` }}
                 >
-                  <div className="w-12 h-12 rounded-full bg-[#f8f9fa] flex items-center justify-center text-[#263647] mb-4 group-hover:bg-[#45e5ed]/10 group-hover:text-[#45e5ed] transition-colors duration-300">
+                  <div 
+                    className="w-12 h-12 rounded-full flex items-center justify-center mb-4 transition-colors duration-300"
+                    style={{ backgroundColor: `${orbit.color}15`, color: orbit.color }}
+                  >
                     {item.icon}
                   </div>
                   <div className="text-center px-4">
@@ -1291,7 +1304,7 @@ function AuditTool({ onOpenCalendar }: { onOpenCalendar: (e: React.MouseEvent) =
               <p className="text-xs text-gray-500 mb-6 leading-relaxed">{card.desc}</p>
               <div className="space-y-2">
                 <a href={content.hero.calendarLink} onClick={onOpenCalendar} className="block w-full py-2 text-center text-[10px] font-bold uppercase tracking-widest bg-[#263647] text-white rounded-lg hover:bg-[#263647]/90 transition-colors">Coaching Live</a>
-                <a href={`mailto:max@intellitalia.it?subject=Analisi Tecnica: ${card.title}`} target="_blank" rel="noopener noreferrer" className="block w-full py-2 text-center text-[10px] font-bold uppercase tracking-widest border border-[#d7d8d8] text-[#263647] rounded-lg hover:bg-gray-50 transition-colors">Analisi Tecnica</a>
+                <a href={`mailto:max@destinova.it?subject=Analisi Tecnica: ${card.title}`} target="_blank" rel="noopener noreferrer" className="block w-full py-2 text-center text-[10px] font-bold uppercase tracking-widest border border-[#d7d8d8] text-[#263647] rounded-lg hover:bg-gray-50 transition-colors">Analisi Tecnica</a>
               </div>
             </motion.div>
           ))}
@@ -1452,18 +1465,9 @@ export default function App() {
         {/* Hero Section */}
         <section className="container mx-auto px-6 pt-20 pb-32 md:pt-28 md:pb-40 flex flex-col items-center text-center">
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-[#60a5fa] font-medium text-lg mb-6"
-          >
-            Mokapen
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-200 border border-transparent shadow-sm text-sm font-bold text-[#263647] mb-8"
           >
             <span className="w-2 h-2 rounded-full bg-[#45e5ed] animate-pulse"></span>
@@ -1471,27 +1475,27 @@ export default function App() {
           </motion.div>
           
           <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
+            transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
             className="text-4xl md:text-6xl lg:text-7xl font-display font-semibold tracking-tight leading-tight mb-8 max-w-5xl text-[#263647]"
           >
             {content.hero.headline}
           </motion.h1>
           
           <motion.p 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
             className="text-lg md:text-xl text-[#263647]/70 max-w-3xl mb-12 font-light leading-relaxed"
           >
             {content.hero.subheadline}
           </motion.p>
           
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
+            transition={{ duration: 0.8, delay: 0.45, ease: "easeOut" }}
             className="flex flex-col sm:flex-row gap-4 mb-16"
           >
             <a 
@@ -1887,9 +1891,9 @@ export default function App() {
                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#45e5ed]/10 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
                 <Globe className="w-10 h-10 text-[#45e5ed] mb-6 relative z-10" />
                 <h3 className="text-2xl font-display font-bold text-[#263647] mb-2 relative z-10">Destinova | Academy</h3>
-                <p className="text-[#263647]/70 mb-8 relative z-10">Academy e Consulenza Strategica per l'empowerment digitale di DMO e operatori turistici.</p>
+                <p className="text-[#263647]/70 mb-8 relative z-10">Il nuovo ecosistema formativo digitale interamente dedicato a destinazioni e territori</p>
                 <div className="flex items-center gap-2 text-[#45e5ed] font-bold text-sm uppercase tracking-widest relative z-10">
-                  Esplora l'agenzia <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  Esplora l'Academy <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </div>
               </button>
             </div>
