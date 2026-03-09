@@ -1603,19 +1603,19 @@ export default function App() {
 
                   <div className="relative">
                     <div className="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-white border-4 border-[#d7d8d8]"></div>
-                    <h4 className="text-lg font-bold text-[#263647]">Zukunvt</h4>
+                    <h4 className="text-lg font-bold text-[#263647]">Factory</h4>
                     <p className="text-sm text-[#263647]/40 font-bold uppercase tracking-wider mb-2">2022 - 2023</p>
                     <p className="text-[#263647]/70 text-sm leading-relaxed">
-                      Head of Growth & Strategy. Creazione e gestione di reparti marketing data-driven per l'accelerazione di business turistici.
+                      Business Development Manager. Espansione dell'ecosistema digitale per destinazioni e gestione relazioni B2B/B2G.
                     </p>
                   </div>
 
                   <div className="relative">
                     <div className="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-white border-4 border-[#d7d8d8]"></div>
-                    <h4 className="text-lg font-bold text-[#263647]">Factory</h4>
+                    <h4 className="text-lg font-bold text-[#263647]">Zukunvt</h4>
                     <p className="text-sm text-[#263647]/40 font-bold uppercase tracking-wider mb-2">2019 - 2022</p>
                     <p className="text-[#263647]/70 text-sm leading-relaxed">
-                      Business Development Manager. Espansione dell'ecosistema digitale per destinazioni e gestione relazioni B2B/B2G.
+                      Head of Growth & Strategy. Creazione e gestione di reparti marketing data-driven per l'accelerazione di business turistici.
                     </p>
                   </div>
 
