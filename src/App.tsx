@@ -62,7 +62,7 @@ const content = {
     steps: [
       {
         id: "profile",
-        question: "1. In quale tipo di organizzazione operi?",
+        question: "In quale tipo di organizzazione operi?",
         options: [
           { text: "Comune", value: 2, category: "Visione Strategica" },
           { text: "Ente di promozione turistica", value: 3, category: "Visione Strategica" },
@@ -74,7 +74,7 @@ const content = {
       },
       {
         id: "role_public",
-        question: "2. Qual è il tuo ruolo all'interno dell'ente?",
+        question: "Qual è il tuo ruolo all'interno dell'ente?",
         condition: (answers: any) => ["Comune", "Ente di promozione turistica", "GAL"].includes(answers.profile),
         options: [
           { text: "Amministratore (Sindaco/Assessore)", value: 3, category: "Capitale Umano" },
@@ -86,7 +86,7 @@ const content = {
       },
       {
         id: "role_private",
-        question: "2. Qual è il tuo ruolo all'interno dell'organizzazione?",
+        question: "Qual è il tuo ruolo all'interno dell'organizzazione?",
         condition: (answers: any) => !["Comune", "Ente di promozione turistica", "GAL"].includes(answers.profile),
         options: [
           { text: "CEO / Direttore Generale", value: 5, category: "Capitale Umano" },
@@ -99,7 +99,7 @@ const content = {
       },
       {
         id: "scale",
-        question: "3. Qual è la scala territoriale della tua organizzazione?",
+        question: "Qual è la scala territoriale della tua organizzazione?",
         options: [
           { text: "Locale", value: 2, category: "Visione Strategica" },
           { text: "Territoriale / Comprensoriale", value: 3, category: "Visione Strategica" },
@@ -111,7 +111,7 @@ const content = {
       },
       {
         id: "geography",
-        question: "4. In quale contesto geografico operi principalmente?",
+        question: "In quale contesto geografico operi principalmente?",
         options: [
           { text: "Mare / Balneare", value: 3, category: "Visione Strategica" },
           { text: "Montagna / Neve / Laghi", value: 3, category: "Visione Strategica" },
@@ -123,7 +123,7 @@ const content = {
       },
       {
         id: "team_size",
-        question: "5. Com'è strutturato il tuo team?",
+        question: "Com'è strutturato il tuo team?",
         options: [
           { text: "Lavoro da solo / Freelance", value: 1, category: "Capitale Umano" },
           { text: "Team piccolo (< 5 persone)", value: 2, category: "Capitale Umano" },
@@ -134,7 +134,7 @@ const content = {
       },
       {
         id: "team_structure",
-        question: "6. Qual è il modello di gestione del team?",
+        question: "Qual è il modello di gestione del team?",
         options: [
           { text: "Gerarchico / Tradizionale", value: 2, category: "Capitale Umano" },
           { text: "Agile / Orizzontale", value: 5, category: "Capitale Umano" },
@@ -144,7 +144,7 @@ const content = {
       },
       {
         id: "volumes",
-        question: "7. Quali sono i volumi annui (presenze turistiche)?",
+        question: "Quali sono i volumi annui (presenze turistiche)?",
         options: [
           { text: "Fino a 100.000", value: 1, category: "Maturità Digitale" },
           { text: "Tra 100.000 e 500.000", value: 2, category: "Maturità Digitale" },
@@ -155,7 +155,7 @@ const content = {
       },
       {
         id: "stakeholders",
-        question: "8. Qual è il sentiment prevalente dei tuoi stakeholder?",
+        question: "Qual è il sentiment prevalente dei tuoi stakeholder?",
         options: [
           { text: "Ostile / Resistente al cambiamento", value: 1, category: "Sostenibilità Sociale" },
           { text: "Indifferente / Passivo", value: 2, category: "Sostenibilità Sociale" },
@@ -165,7 +165,7 @@ const content = {
       },
       {
         id: "community",
-        question: "9. Quanto è coinvolta la comunità locale nelle decisioni?",
+        question: "Quanto è coinvolta la comunità locale nelle decisioni?",
         options: [
           { text: "Molto coinvolta / Partecipazione attiva", value: 5, category: "Sostenibilità Sociale" },
           { text: "Marginalmente coinvolta", value: 3, category: "Sostenibilità Sociale" },
@@ -175,7 +175,7 @@ const content = {
       },
       {
         id: "data",
-        question: "10. Come gestite e incrociate i dati?",
+        question: "Come gestite e incrociate i dati?",
         options: [
           { text: "Nessun incrocio (prevalentemente Excel)", value: 1, category: "Maturità Digitale" },
           { text: "Base (Integrazione DMS/CRM)", value: 3, category: "Maturità Digitale" },
@@ -185,7 +185,7 @@ const content = {
       },
       {
         id: "ai_vision",
-        question: "11. Qual è la visione dell'AI nella tua realtà?",
+        question: "Qual è la visione dell'AI nella tua realtà?",
         options: [
           { text: "Paura / Rischio di sostituzione", value: 1, category: "Integrazione AI" },
           { text: "Curiosità / Semplice strumento", value: 2, category: "Integrazione AI" },
@@ -195,7 +195,7 @@ const content = {
       },
       {
         id: "proactivity",
-        question: "12. Come definiresti la vostra proattività?",
+        question: "Come definiresti la vostra proattività?",
         options: [
           { text: "Reattiva (risolviamo problemi)", value: 2, category: "Visione Strategica" },
           { text: "Proattiva (pianifichiamo)", value: 3, category: "Visione Strategica" },
@@ -205,7 +205,7 @@ const content = {
       },
       {
         id: "sustainability",
-        question: "13. Qual è il focus sulla sostenibilità?",
+        question: "Qual è il focus sulla sostenibilità?",
         options: [
           { text: "Solo ambientale", value: 3, category: "Sostenibilità Sociale" },
           { text: "Sociale & Ambientale", value: 4, category: "Sostenibilità Sociale" },
@@ -1189,6 +1189,12 @@ function AuditTool({ onOpenCalendar }: { onOpenCalendar: (e: React.MouseEvent) =
     // Make.com Webhook URL
     const webhookUrl = "https://hook.eu1.make.com/v373pzupuens44ss9po35ouned19ary0";
     
+    // Normalize answers to ensure all fields are present for Google Sheets mapping
+    const normalizedAnswers: Record<string, string> = {};
+    content.audit.steps.forEach(step => {
+      normalizedAnswers[step.id] = answers[step.id] || "N/A";
+    });
+
     try {
       // We attempt to send data to the webhook
       await fetch(webhookUrl, {
@@ -1198,7 +1204,7 @@ function AuditTool({ onOpenCalendar }: { onOpenCalendar: (e: React.MouseEvent) =
         },
         body: JSON.stringify({
           lead: leadData,
-          answers: answers
+          answers: normalizedAnswers
         }),
       });
     } catch (error) {
