@@ -52,8 +52,8 @@ const content = {
     subheadline: "Strategie, competenze e tecnologie per guidare DMO e operatori turistici nell'era digitale.",
     missionTitle: "La mia mission nel settore",
     missionText: "Orientare i Destination Manager verso un futuro digitale, innovativo e sostenibile, favorendo le sinergie tra gli stakeholder del settore turistico, sottolineando l'importanza dei dati e della tecnologia per decisioni strategiche e promuovendo una cultura di agilità e innovazione nelle nostre destinazioni.",
-    ctaPrimary: "Esplora l'Academy",
-    ctaSecondary: "Inizia l'Assessment",
+    ctaPrimary: "Fissa una call conoscitiva",
+    ctaSecondary: "Scopri il tuo approccio",
     calendarLink: "https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1moQmdvh9-0wiTeuce3YjVz3m39qKRP15nS7HqE_rpd2SBOzEGATaf4RCGDvkDY9J0FDZ5CfZJ",
   },
   audit: {
@@ -114,9 +114,11 @@ const content = {
         question: "4. In quale contesto geografico operi principalmente?",
         options: [
           { text: "Mare / Balneare", value: 3, category: "Visione Strategica" },
-          { text: "Montagna / Neve", value: 3, category: "Visione Strategica" },
-          { text: "Città d'Arte", value: 4, category: "Visione Strategica" },
-          { text: "Borghi / Rurale / Outdoor", value: 2, category: "Visione Strategica" }
+          { text: "Montagna / Neve / Laghi", value: 3, category: "Visione Strategica" },
+          { text: "Città d'Arte / Metropoli", value: 4, category: "Visione Strategica" },
+          { text: "Borghi / Aree Interne / Rurale", value: 2, category: "Visione Strategica" },
+          { text: "Terme / Benessere", value: 3, category: "Visione Strategica" },
+          { text: "Destinazione Mista / Diffusa", value: 4, category: "Visione Strategica" }
         ]
       },
       {
@@ -144,10 +146,11 @@ const content = {
         id: "volumes",
         question: "7. Quali sono i volumi annui (presenze turistiche)?",
         options: [
-          { text: "< 10.000", value: 1, category: "Maturità Digitale" },
-          { text: "10.000 - 100.000", value: 3, category: "Maturità Digitale" },
-          { text: "100.000 - 500.000", value: 4, category: "Maturità Digitale" },
-          { text: "> 500.000", value: 5, category: "Maturità Digitale" }
+          { text: "Fino a 100.000", value: 1, category: "Maturità Digitale" },
+          { text: "Tra 100.000 e 500.000", value: 2, category: "Maturità Digitale" },
+          { text: "Tra 500.000 e 1 Milione", value: 3, category: "Maturità Digitale" },
+          { text: "Tra 1 e 5 Milioni", value: 4, category: "Maturità Digitale" },
+          { text: "Oltre 5 Milioni", value: 5, category: "Maturità Digitale" }
         ]
       },
       {
@@ -175,7 +178,7 @@ const content = {
         question: "10. Come gestite e incrociate i dati?",
         options: [
           { text: "Nessun incrocio (prevalentemente Excel)", value: 1, category: "Maturità Digitale" },
-          { text: "Base (Integrazione PMS/CRM)", value: 3, category: "Maturità Digitale" },
+          { text: "Base (Integrazione DMS/CRM)", value: 3, category: "Maturità Digitale" },
           { text: "Avanzato (Data Hub / BI)", value: 4, category: "Maturità Digitale" },
           { text: "Predittivo (Analisi flussi e trend)", value: 5, category: "Maturità Digitale" }
         ]
@@ -1183,8 +1186,8 @@ function AuditTool({ onOpenCalendar }: { onOpenCalendar: (e: React.MouseEvent) =
     e.preventDefault();
     setIsSubmittingLead(true);
     
-    // Replace with your actual webhook URL (e.g., Make.com, Zapier, Formspree)
-    const webhookUrl = "https://hook.eu2.make.com/your-webhook-url-here";
+    // Make.com Webhook URL
+    const webhookUrl = "https://hook.eu1.make.com/v373pzupuens44ss9po35ouned19ary0";
     
     try {
       // We attempt to send data to the webhook
@@ -1266,7 +1269,7 @@ function AuditTool({ onOpenCalendar }: { onOpenCalendar: (e: React.MouseEvent) =
 
       const result = await genAI.models.generateContent({
         model: GEMINI_MODEL,
-        contents: [{ role: 'user', parts: [{ text: prompt }] }]
+        contents: prompt
       });
       setAiAnalysis(result.text || "Analisi non disponibile.");
     } catch (error) {
@@ -1306,7 +1309,7 @@ function AuditTool({ onOpenCalendar }: { onOpenCalendar: (e: React.MouseEvent) =
             onClick={() => setHasStarted(true)}
             className="px-8 py-4 rounded-full bg-[#263647] text-white font-medium hover:bg-[#263647]/90 transition-colors inline-flex items-center justify-center gap-2 group shadow-lg shadow-[#263647]/20 text-lg"
           >
-            Inizia l'Assessment
+            Scopri il tuo approccio
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
