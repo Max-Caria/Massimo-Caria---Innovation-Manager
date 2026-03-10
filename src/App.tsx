@@ -49,7 +49,7 @@ const content = {
     name: "Massimo Caria",
     role: "Innovation Bridge",
     headline: "Affianco i Manager del Turismo nella Sfida dell'Innovazione e della Digitalizzazione.",
-    subheadline: "Il nuovo ecosistema formativo digitale interamente dedicato a destinazioni e territori",
+    subheadline: "Strategie, competenze e tecnologie per guidare DMO e operatori turistici nell'era digitale.",
     missionTitle: "La mia mission nel settore",
     missionText: "Orientare i Destination Manager verso un futuro digitale, innovativo e sostenibile, favorendo le sinergie tra gli stakeholder del settore turistico, sottolineando l'importanza dei dati e della tecnologia per decisioni strategiche e promuovendo una cultura di agilità e innovazione nelle nostre destinazioni.",
     ctaPrimary: "Esplora l'Academy",
@@ -802,7 +802,7 @@ function TransformationEcosystem() {
   ];
 
   return (
-    <div className="relative w-full h-[600px] lg:h-[1300px] flex items-center justify-center overflow-hidden py-12">
+    <div className="relative w-full h-auto lg:h-[1300px] flex items-center justify-center lg:overflow-hidden py-12">
       
       {/* Mobile View */}
       <div className="lg:hidden w-full px-4 space-y-8">
@@ -930,7 +930,7 @@ function RadarChart({ scores }: { scores: Record<string, number> }) {
     "Visione Strategica"
   ];
   
-  const size = window.innerWidth < 768 ? 250 : 300;
+  const size = 400;
   const center = size / 2;
   const radius = size * 0.35;
   
@@ -941,16 +941,16 @@ function RadarChart({ scores }: { scores: Record<string, number> }) {
     return {
       x: center + r * Math.cos(angle),
       y: center + r * Math.sin(angle),
-      labelX: center + (radius + 30) * Math.cos(angle),
-      labelY: center + (radius + 30) * Math.sin(angle)
+      labelX: center + (radius + 45) * Math.cos(angle),
+      labelY: center + (radius + 45) * Math.sin(angle)
     };
   });
   
   const polygonPath = points.map(p => `${p.x},${p.y}`).join(" ");
   
   return (
-    <div className="flex justify-center items-center py-4 overflow-visible">
-      <svg width={size + 120} height={size + 120} viewBox={`-60 -60 ${size + 120} ${size + 120}`} className="overflow-visible">
+    <div className="flex justify-center items-center py-4 w-full overflow-visible">
+      <svg viewBox="0 0 400 400" className="w-full h-auto max-w-[400px] overflow-visible">
         {/* Background Circles */}
         {[1, 2, 3, 4, 5].map(level => (
           <circle
@@ -991,18 +991,25 @@ function RadarChart({ scores }: { scores: Record<string, number> }) {
         />
         
         {/* Labels */}
-        {points.map((p, i) => (
-          <text
-            key={i}
-            x={p.labelX}
-            y={p.labelY}
-            textAnchor="middle"
-            dominantBaseline="middle"
-            className="text-[10px] font-semibold fill-[#263647] uppercase tracking-tighter"
-          >
-            {axes[i]}
-          </text>
-        ))}
+        {points.map((p, i) => {
+          const angle = (i * 2 * Math.PI) / axes.length - Math.PI / 2;
+          let textAnchor = "middle";
+          if (Math.cos(angle) > 0.1) textAnchor = "start";
+          else if (Math.cos(angle) < -0.1) textAnchor = "end";
+          
+          return (
+            <text
+              key={i}
+              x={p.labelX}
+              y={p.labelY}
+              textAnchor={textAnchor}
+              dominantBaseline="middle"
+              className="text-[10px] sm:text-[11px] font-semibold fill-[#263647] uppercase tracking-tighter"
+            >
+              {axes[i]}
+            </text>
+          );
+        })}
       </svg>
     </div>
   );
@@ -1126,6 +1133,7 @@ function DigitalTwin() {
 }
 
 function AuditTool({ onOpenCalendar }: { onOpenCalendar: (e: React.MouseEvent) => void }) {
+  const [hasStarted, setHasStarted] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, any>>({});
   const [isFinished, setIsFinished] = useState(false);
@@ -1133,6 +1141,9 @@ function AuditTool({ onOpenCalendar }: { onOpenCalendar: (e: React.MouseEvent) =
   const [isLoadingAi, setIsLoadingAi] = useState(false);
   const [customProfile, setCustomProfile] = useState("");
   const [showCustomInput, setShowCustomInput] = useState(false);
+  const [showLeadForm, setShowLeadForm] = useState(false);
+  const [leadData, setLeadData] = useState({ name: "", email: "", company: "" });
+  const [isSubmittingLead, setIsSubmittingLead] = useState(false);
 
   // Filter steps based on conditions
   const visibleSteps = content.audit.steps.filter(step => !step.condition || step.condition(answers));
@@ -1149,8 +1160,7 @@ function AuditTool({ onOpenCalendar }: { onOpenCalendar: (e: React.MouseEvent) =
     if (currentStep < visibleSteps.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
-      setIsFinished(true);
-      generateAnalysis(newAnswers);
+      setShowLeadForm(true);
     }
   };
 
@@ -1165,9 +1175,44 @@ function AuditTool({ onOpenCalendar }: { onOpenCalendar: (e: React.MouseEvent) =
     if (currentStep < visibleSteps.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
-      setIsFinished(true);
-      generateAnalysis(newAnswers);
+      setShowLeadForm(true);
     }
+  };
+
+  const handleLeadSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmittingLead(true);
+    
+    // Replace with your actual webhook URL (e.g., Make.com, Zapier, Formspree)
+    const webhookUrl = "https://hook.eu2.make.com/your-webhook-url-here";
+    
+    try {
+      // We attempt to send data to the webhook
+      await fetch(webhookUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          lead: leadData,
+          answers: answers
+        }),
+      });
+    } catch (error) {
+      console.error("Error sending lead data:", error);
+      // We continue anyway so the user gets their results
+    }
+    
+    setIsSubmittingLead(false);
+    setShowLeadForm(false);
+    setIsFinished(true);
+    generateAnalysis(answers);
+  };
+
+  const skipLeadForm = () => {
+    setShowLeadForm(false);
+    setIsFinished(true);
+    generateAnalysis(answers);
   };
 
   const calculateScores = () => {
@@ -1232,42 +1277,157 @@ function AuditTool({ onOpenCalendar }: { onOpenCalendar: (e: React.MouseEvent) =
     }
   };
 
+  if (!hasStarted) {
+    return (
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="bg-white rounded-3xl border border-[#d7d8d8] shadow-2xl p-8 md:p-16 max-w-4xl mx-auto text-center relative overflow-hidden"
+      >
+        <div className="absolute top-0 right-0 w-64 h-64 bg-[#45e5ed]/10 rounded-full blur-[80px] pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#45e5ed]/10 rounded-full blur-[80px] pointer-events-none"></div>
+        
+        <div className="relative z-10 max-w-2xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#45e5ed]/10 text-[#263647] text-xs font-bold uppercase tracking-widest mb-8">
+            <Sparkles className="w-4 h-4 text-[#45e5ed]" />
+            Assessment Gratuito
+          </div>
+          
+          <h2 className="text-3xl md:text-5xl font-display font-bold text-[#263647] mb-6">
+            {content.audit.title}
+          </h2>
+          
+          <p className="text-lg md:text-xl text-[#263647]/70 mb-10 leading-relaxed">
+            Scopri il livello di maturità digitale della tua organizzazione in meno di 3 minuti. 
+            Rispondi a poche semplici domande per ricevere un'analisi personalizzata e una roadmap strategica per il futuro della tua destinazione.
+          </p>
+          
+          <button 
+            onClick={() => setHasStarted(true)}
+            className="px-8 py-4 rounded-full bg-[#263647] text-white font-medium hover:bg-[#263647]/90 transition-colors inline-flex items-center justify-center gap-2 group shadow-lg shadow-[#263647]/20 text-lg"
+          >
+            Inizia l'Assessment
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </button>
+        </div>
+      </motion.div>
+    );
+  }
+
+  if (showLeadForm) {
+    return (
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="bg-white rounded-3xl border border-[#d7d8d8] shadow-2xl p-8 md:p-12 max-w-2xl mx-auto text-center"
+      >
+        <div className="w-16 h-16 rounded-full bg-[#45e5ed]/10 flex items-center justify-center mx-auto mb-6">
+          <Send className="w-8 h-8 text-[#45e5ed]" />
+        </div>
+        <h3 className="text-3xl font-display font-bold text-[#263647] mb-4">Assessment Completato!</h3>
+        <p className="text-[#263647]/70 mb-8">
+          Inserisci i tuoi dati per ricevere i risultati dell'analisi e scoprire il livello di maturità digitale della tua destinazione.
+        </p>
+        
+        <form onSubmit={handleLeadSubmit} className="space-y-4 text-left">
+          <div>
+            <label className="block text-sm font-bold text-[#263647] mb-2">Nome e Cognome</label>
+            <input 
+              type="text" 
+              required
+              value={leadData.name}
+              onChange={(e) => setLeadData({...leadData, name: e.target.value})}
+              className="w-full p-4 rounded-xl border border-[#d7d8d8] focus:border-[#45e5ed] focus:ring-1 focus:ring-[#45e5ed] outline-none transition-all"
+              placeholder="Mario Rossi"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-bold text-[#263647] mb-2">Email</label>
+            <input 
+              type="email" 
+              required
+              value={leadData.email}
+              onChange={(e) => setLeadData({...leadData, email: e.target.value})}
+              className="w-full p-4 rounded-xl border border-[#d7d8d8] focus:border-[#45e5ed] focus:ring-1 focus:ring-[#45e5ed] outline-none transition-all"
+              placeholder="mario.rossi@email.com"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-bold text-[#263647] mb-2">Ente / Azienda</label>
+            <input 
+              type="text" 
+              value={leadData.company}
+              onChange={(e) => setLeadData({...leadData, company: e.target.value})}
+              className="w-full p-4 rounded-xl border border-[#d7d8d8] focus:border-[#45e5ed] focus:ring-1 focus:ring-[#45e5ed] outline-none transition-all"
+              placeholder="Nome della tua organizzazione"
+            />
+          </div>
+          
+          <div className="pt-4 flex flex-col sm:flex-row gap-4">
+            <button 
+              type="button"
+              onClick={skipLeadForm}
+              className="flex-1 py-4 px-6 rounded-xl border border-[#d7d8d8] text-[#263647] font-bold uppercase tracking-widest text-xs hover:bg-gray-50 transition-colors"
+            >
+              Salta e vedi i risultati
+            </button>
+            <button 
+              type="submit"
+              disabled={isSubmittingLead}
+              className="flex-1 py-4 px-6 rounded-xl bg-[#263647] text-white font-bold uppercase tracking-widest text-xs hover:bg-[#263647]/90 transition-colors disabled:opacity-70 flex justify-center items-center gap-2"
+            >
+              {isSubmittingLead ? (
+                <>
+                  <RefreshCw className="w-4 h-4 animate-spin" /> Invio in corso...
+                </>
+              ) : (
+                <>
+                  Vedi Risultati <ArrowRight className="w-4 h-4" />
+                </>
+              )}
+            </button>
+          </div>
+        </form>
+      </motion.div>
+    );
+  }
+
   if (isFinished) {
     const scores = calculateScores();
     return (
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white rounded-3xl border border-[#d7d8d8] shadow-2xl p-8 md:p-12 max-w-6xl mx-auto"
+        className="bg-white rounded-3xl border border-[#d7d8d8] shadow-2xl p-6 md:p-12 max-w-6xl mx-auto"
       >
-        <div className="grid lg:grid-cols-2 gap-12 items-start mb-16">
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-start mb-12 md:mb-16">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#45e5ed]/10 text-[#263647] text-xs font-bold uppercase tracking-widest mb-6">
               <Target className="w-4 h-4" />
               Il Tuo Posizionamento
             </div>
-            <h3 className="text-3xl font-display font-bold mb-8">Analisi Strategica 2025</h3>
+            <h3 className="text-2xl md:text-3xl font-display font-bold mb-8">Analisi Strategica 2025</h3>
             <RadarChart scores={scores} />
           </div>
           
-          <div className="bg-[#f8f9fa] p-8 rounded-3xl border border-[#d7d8d8]">
-            <div className="flex items-center justify-between mb-6">
+          <div className="bg-[#f8f9fa] p-6 md:p-8 rounded-3xl border border-[#d7d8d8]">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
               <div className="flex items-center gap-3">
-                <Sparkles className="w-6 h-6 text-[#45e5ed]" />
-                <h4 className="text-xl font-display font-bold">Executive Summary Preliminare</h4>
+                <Sparkles className="w-6 h-6 text-[#45e5ed] flex-shrink-0" />
+                <h4 className="text-lg md:text-xl font-display font-bold">Executive Summary Preliminare</h4>
               </div>
               {!genAI && (
-                <span className="px-2 py-0.5 rounded bg-amber-100 text-amber-700 text-[10px] font-bold uppercase tracking-widest">Demo Mode</span>
+                <span className="px-2 py-0.5 rounded bg-amber-100 text-amber-700 text-[10px] font-bold uppercase tracking-widest whitespace-nowrap">Demo Mode</span>
               )}
             </div>
             {isLoadingAi ? (
               <div className="flex flex-col items-center justify-center py-12 gap-4">
                 <Loader2 className="w-8 h-8 animate-spin text-[#45e5ed]" />
-                <p className="text-sm text-gray-500">Il Digital Twin sta elaborando i tuoi dati...</p>
+                <p className="text-sm text-gray-500 text-center">Il Digital Twin sta elaborando i tuoi dati...</p>
               </div>
             ) : (
               <>
-                <div className="prose prose-sm prose-slate max-w-none text-[#263647]/80 mb-8 bg-white p-6 rounded-2xl border border-[#d7d8d8] shadow-sm">
+                <div className="prose prose-sm prose-slate max-w-none text-[#263647]/80 mb-8 bg-white p-4 md:p-6 rounded-2xl border border-[#d7d8d8] shadow-sm">
                   <Markdown>{aiAnalysis}</Markdown>
                 </div>
                 <button 
@@ -1282,7 +1442,7 @@ function AuditTool({ onOpenCalendar }: { onOpenCalendar: (e: React.MouseEvent) =
           </div>
         </div>
 
-        <h4 className="text-2xl font-display font-bold mb-8 text-center">La Tua Roadmap Strategica</h4>
+        <h4 className="text-xl md:text-2xl font-display font-bold mb-8 text-center">La Tua Roadmap Strategica</h4>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
             { title: "Consolidamento Basi", icon: <ShieldCheck className="w-6 h-6" />, desc: "Audit tecnico e pulizia dei dati per creare fondamenta solide." },
@@ -1311,7 +1471,7 @@ function AuditTool({ onOpenCalendar }: { onOpenCalendar: (e: React.MouseEvent) =
         </div>
 
         <div className="mt-12 text-center">
-          <button onClick={() => { setCurrentStep(0); setIsFinished(false); setAnswers({}); }} className="text-sm font-semibold text-[#45e5ed] hover:underline flex items-center justify-center gap-2 mx-auto">
+          <button onClick={() => { setHasStarted(false); setCurrentStep(0); setIsFinished(false); setAnswers({}); }} className="text-sm font-semibold text-[#45e5ed] hover:underline flex items-center justify-center gap-2 mx-auto">
             <RefreshCw className="w-4 h-4" />
             Ricomincia Audit
           </button>
