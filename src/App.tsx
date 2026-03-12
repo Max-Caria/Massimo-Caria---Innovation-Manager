@@ -1965,7 +1965,7 @@ export default function App() {
           </div>
         </section>
 
-        {/* Testimonianze */}
+        {/* Testimonianze - Temporaneamente disabilitate in attesa delle recensioni
         <section className="py-32 border-t border-[#d7d8d8]/50 bg-[#f8f9fa]">
           <div className="container mx-auto px-6">
             <h2 className="text-3xl md:text-5xl font-display font-semibold mb-20 text-center">{content.testimonials.title}</h2>
@@ -2002,6 +2002,7 @@ export default function App() {
             </div>
           </div>
         </section>
+        */}
 
         {/* Footer/CTA Finale */}
         <footer id="contact" className="py-24 border-t border-[#d7d8d8]/50 relative overflow-hidden bg-[#f8f9fa]">
