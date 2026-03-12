@@ -271,17 +271,17 @@ const content = {
     title: "Dicono di Me",
     items: [
       {
-        quote: "Massimo ha una visione strategica unica. La sua capacità di analizzare il contesto e proporre soluzioni innovative ha fatto la differenza nei nostri progetti di sviluppo territoriale.",
+        quote: "[Spazio riservato alla recensione] Tema suggerito: implementazione e formazione con tool di AI per il destination management.",
         name: "Paolo Grigolli",
         role: "Esperto Destination Manager e Mentor"
       },
       {
-        quote: "Il workshop sull'AI condotto da Massimo ha aperto nuove prospettive al nostro team. Un approccio pratico e visionario che ha subito portato valore.",
+        quote: "[Spazio riservato alla recensione] Tema suggerito: workshop di ispirazione per il team sui temi di AI.",
         name: "Carlo Runggaldier",
         role: "Destination Manager DMO San Vigilio di Marebbe"
       },
       {
-        quote: "La formazione del team FrontOffice è stata un successo. Massimo ha saputo coinvolgere e motivare le persone, fornendo strumenti concreti per migliorare l'accoglienza.",
+        quote: "[Spazio riservato alla recensione] Tema suggerito: percorso di formazione per il team front office che è tuttora in svolgimento.",
         name: "Roberta Agosti",
         role: "Direttore Azienda di Turismo e Soggiorno"
       }
@@ -1982,7 +1982,11 @@ export default function App() {
                 >
                   <Quote className="w-10 h-10 text-[#45e5ed]/20 absolute top-6 right-6" />
                   <p className="text-[#263647]/80 font-light leading-relaxed mb-8 relative z-10 italic">
-                    "{testimonial.quote}"
+                    {testimonial.quote.includes("[Spazio riservato") ? (
+                      <span className="text-[#263647]/50">{testimonial.quote}</span>
+                    ) : (
+                      `"${testimonial.quote}"`
+                    )}
                   </p>
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-full bg-[#263647] flex items-center justify-center font-display font-medium text-white">
