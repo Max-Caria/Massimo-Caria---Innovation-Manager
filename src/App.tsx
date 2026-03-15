@@ -1649,7 +1649,7 @@ export default function App() {
             
             <div className="hidden md:flex items-center gap-8 text-sm font-medium text-[#263647]/80">
               <a href="#hero" className="hover:text-[#45e5ed] transition-colors">Hero</a>
-              <a href="#assessment" className="hover:text-[#45e5ed] transition-colors">Assessment</a>
+              <a href="#assessment" className="text-[#45e5ed] font-bold hover:text-[#263647] transition-colors">Fai l'Audit gratuito</a>
               <a href="#ecosistema" className="hover:text-[#45e5ed] transition-colors">Ecosistema</a>
               <a href="#about" className="hover:text-[#45e5ed] transition-colors">Chi Sono</a>
               <a href="#servizi" className="hover:text-[#45e5ed] transition-colors">Servizi</a>
@@ -1683,7 +1683,7 @@ export default function App() {
           {isMobileMenuOpen && (
             <div className="md:hidden absolute top-full left-0 right-0 bg-white border-b border-[#d7d8d8]/50 shadow-lg py-4 px-6 flex flex-col gap-4">
               <a href="#hero" onClick={() => setIsMobileMenuOpen(false)} className="text-[#263647] font-medium py-2 border-b border-gray-100">Hero</a>
-              <a href="#assessment" onClick={() => setIsMobileMenuOpen(false)} className="text-[#263647] font-medium py-2 border-b border-gray-100">Assessment</a>
+              <a href="#assessment" onClick={() => setIsMobileMenuOpen(false)} className="text-[#45e5ed] font-bold py-2 border-b border-gray-100">Fai l'Audit gratuito</a>
               <a href="#ecosistema" onClick={() => setIsMobileMenuOpen(false)} className="text-[#263647] font-medium py-2 border-b border-gray-100">Ecosistema</a>
               <a href="#about" onClick={() => setIsMobileMenuOpen(false)} className="text-[#263647] font-medium py-2 border-b border-gray-100">Chi Sono</a>
               <a href="#servizi" onClick={() => setIsMobileMenuOpen(false)} className="text-[#263647] font-medium py-2 border-b border-gray-100">Servizi</a>
