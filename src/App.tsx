@@ -1215,8 +1215,8 @@ function AuditTool({ onOpenCalendar }: { onOpenCalendar: (e: React.MouseEvent) =
     e.preventDefault();
     setIsSubmittingLead(true);
     
-    // Make.com Webhook URL
-    const webhookUrl = "https://hook.eu1.make.com/v373pzupuens44ss9po35ouned19ary0";
+    // URL del Webhook (Sostituisci con l'URL del tuo Google Apps Script o Make.com)
+    const webhookUrl = "https://script.google.com/macros/s/AKfycbxgl0uEK9Cj9qRzMNzSdHZOOOM7Ki6Te_U_pKKkN6LRCigRzpNuXcmsC1OGEXpvHuf-/exec";
     
     // Normalize answers to ensure all fields are present for Google Sheets mapping
     const normalizedAnswers: Record<string, string> = {};
@@ -1225,15 +1225,17 @@ function AuditTool({ onOpenCalendar }: { onOpenCalendar: (e: React.MouseEvent) =
     });
 
     try {
-      // We attempt to send data to the webhook
+      // Invio dati al webhook (compatibile con Google Apps Script e Make.com)
       await fetch(webhookUrl, {
         method: "POST",
+        // Usiamo text/plain per evitare problemi di CORS con Google Apps Script
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "text/plain;charset=utf-8",
         },
         body: JSON.stringify({
           lead: leadData,
-          answers: normalizedAnswers
+          answers: normalizedAnswers,
+          source: "Audit Destinova"
         }),
       });
     } catch (error) {
