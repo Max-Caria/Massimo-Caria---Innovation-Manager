@@ -33,7 +33,9 @@ import {
   Briefcase,
   Megaphone,
   Map as MapIcon,
-  Compass
+  Compass,
+  Menu,
+  X
 } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { GoogleGenAI } from "@google/genai";
@@ -346,9 +348,9 @@ interface LandingPageProps {
   ctaLink: string;
   ctaAction?: (e: React.MouseEvent) => void;
   features: { icon: React.ReactNode; title: string; subtitle: string; description: string }[];
-  modulesTitle: string;
-  modulesSubtitle: string;
-  tabs: TabContent[];
+  modulesTitle?: string;
+  modulesSubtitle?: string;
+  tabs?: TabContent[];
   bottomCtaTitle: string;
   bottomCtaSubtitle: string;
   bottomCtaText: string;
@@ -479,67 +481,69 @@ function LandingPageTemplate(props: LandingPageProps) {
       </div>
 
       {/* Modular Architecture */}
-      <div className={`py-24 px-6 ${t.lightBg}`}>
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className={`text-3xl md:text-4xl font-display font-bold ${t.text} mb-4`}>{props.modulesTitle}</h2>
-            <p className="text-slate-600 max-w-2xl mx-auto">{props.modulesSubtitle}</p>
-          </div>
-
-          <div className="flex flex-col lg:flex-row gap-8">
-            {/* Tabs List */}
-            <div className="lg:w-1/3 flex flex-col gap-3">
-              {props.tabs.map((tab, i) => (
-                <button
-                  key={i}
-                  onClick={() => setActiveTab(i)}
-                  className={`flex items-center gap-4 p-5 rounded-xl border text-left transition-all ${
-                    activeTab === i 
-                      ? `${t.activeTabBg} ${theme === 'celestec' ? 'border-[#0052cc]' : 'border-[#263647]'} text-white shadow-lg` 
-                      : `bg-white ${t.cardBorder} text-slate-600 hover:${t.accentBorder} hover:shadow-md`
-                  }`}
-                >
-                  <div className={`${activeTab === i ? (theme === 'celestec' ? 'text-white' : 'text-[#45e5ed]') : 'text-slate-400'}`}>
-                    {tab.icon}
-                  </div>
-                  <div>
-                    <div className={`font-bold ${activeTab === i ? 'text-white' : t.text}`}>{tab.title}</div>
-                    <div className={`text-sm ${activeTab === i ? 'text-white/70' : 'text-slate-500'}`}>{tab.id}</div>
-                  </div>
-                  <ArrowRight className={`w-5 h-5 ml-auto ${activeTab === i ? 'text-white/50' : 'text-slate-300'}`} />
-                </button>
-              ))}
+      {props.tabs && props.tabs.length > 0 && (
+        <div className={`py-24 px-6 ${t.lightBg}`}>
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className={`text-3xl md:text-4xl font-display font-bold ${t.text} mb-4`}>{props.modulesTitle}</h2>
+              <p className="text-slate-600 max-w-2xl mx-auto">{props.modulesSubtitle}</p>
             </div>
 
-            {/* Tab Content */}
-            <div className="lg:w-2/3">
-              <div className={`bg-white rounded-2xl border ${t.cardBorder} p-8 md:p-10 shadow-xl shadow-slate-200/50 h-full flex flex-col`}>
-                <div className="flex items-center gap-4 mb-4">
-                  <div className={`p-3 ${theme === 'celestec' ? 'bg-blue-50 text-[#0052cc]' : 'bg-slate-50 text-[#263647]'} rounded-xl border border-slate-100`}>
-                    {props.tabs[activeTab].icon}
-                  </div>
-                  <h3 className={`text-3xl font-bold ${t.text}`}>{props.tabs[activeTab].title}</h3>
-                </div>
-                <p className="text-slate-600 mb-10 text-lg">{props.tabs[activeTab].description}</p>
-
-                <div className="grid md:grid-cols-2 gap-4 mb-10 flex-1">
-                  {props.tabs[activeTab].items.map((item, i) => (
-                    <div key={i} className={`p-6 rounded-xl bg-slate-50 border ${t.cardBorder} relative`}>
-                      <div className={`absolute top-6 right-6 w-2 h-2 rounded-full ${theme === 'celestec' ? 'bg-[#00a3ff]' : 'bg-[#d7d8d8]'}`}></div>
-                      <h4 className={`font-bold ${t.text} mb-2 pr-6`}>{item.name}</h4>
-                      <p className="text-sm text-slate-500 leading-relaxed">{item.desc}</p>
+            <div className="flex flex-col lg:flex-row gap-8">
+              {/* Tabs List */}
+              <div className="lg:w-1/3 flex flex-col gap-3">
+                {props.tabs.map((tab, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActiveTab(i)}
+                    className={`flex items-center gap-4 p-5 rounded-xl border text-left transition-all ${
+                      activeTab === i 
+                        ? `${t.activeTabBg} ${theme === 'celestec' ? 'border-[#0052cc]' : 'border-[#263647]'} text-white shadow-lg` 
+                        : `bg-white ${t.cardBorder} text-slate-600 hover:${t.accentBorder} hover:shadow-md`
+                    }`}
+                  >
+                    <div className={`${activeTab === i ? (theme === 'celestec' ? 'text-white' : 'text-[#45e5ed]') : 'text-slate-400'}`}>
+                      {tab.icon}
                     </div>
-                  ))}
-                </div>
+                    <div>
+                      <div className={`font-bold ${activeTab === i ? 'text-white' : t.text}`}>{tab.title}</div>
+                      <div className={`text-sm ${activeTab === i ? 'text-white/70' : 'text-slate-500'}`}>{tab.id}</div>
+                    </div>
+                    <ArrowRight className={`w-5 h-5 ml-auto ${activeTab === i ? 'text-white/50' : 'text-slate-300'}`} />
+                  </button>
+                ))}
+              </div>
 
-                <div className={`pt-6 border-t border-slate-100 flex justify-end items-center gap-2 ${t.accent} font-bold text-xs uppercase tracking-widest`}>
-                  MODULO ATTIVO <Zap className="w-4 h-4" />
+              {/* Tab Content */}
+              <div className="lg:w-2/3">
+                <div className={`bg-white rounded-2xl border ${t.cardBorder} p-8 md:p-10 shadow-xl shadow-slate-200/50 h-full flex flex-col`}>
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className={`p-3 ${theme === 'celestec' ? 'bg-blue-50 text-[#0052cc]' : 'bg-slate-50 text-[#263647]'} rounded-xl border border-slate-100`}>
+                      {props.tabs[activeTab].icon}
+                    </div>
+                    <h3 className={`text-3xl font-bold ${t.text}`}>{props.tabs[activeTab].title}</h3>
+                  </div>
+                  <p className="text-slate-600 mb-10 text-lg">{props.tabs[activeTab].description}</p>
+
+                  <div className="grid md:grid-cols-2 gap-4 mb-10 flex-1">
+                    {props.tabs[activeTab].items.map((item, i) => (
+                      <div key={i} className={`p-6 rounded-xl bg-slate-50 border ${t.cardBorder} relative`}>
+                        <div className={`absolute top-6 right-6 w-2 h-2 rounded-full ${theme === 'celestec' ? 'bg-[#00a3ff]' : 'bg-[#d7d8d8]'}`}></div>
+                        <h4 className={`font-bold ${t.text} mb-2 pr-6`}>{item.name}</h4>
+                        <p className="text-sm text-slate-500 leading-relaxed">{item.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className={`pt-6 border-t border-slate-100 flex justify-end items-center gap-2 ${t.accent} font-bold text-xs uppercase tracking-widest`}>
+                    MODULO ATTIVO <Zap className="w-4 h-4" />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Bottom CTA */}
       <div className={`py-24 px-6 ${theme === 'celestec' ? 'bg-transparent' : 'bg-white'} text-center`}>
@@ -604,51 +608,76 @@ function CelestecModal({ isOpen, onClose, onOpenCalendar }: { isOpen: boolean; o
           description: "Framework guidati per navigare la complessità. Trasforma 'tante skills' disconnesse in un flusso di lavoro coerente."
         }
       ]}
-      modulesTitle="Dalla Visione alla Realtà"
-      modulesSubtitle="Un sistema modulare che segue il flusso logico della trasformazione: dal fondamento strategico all'esecuzione operativa."
+      modulesTitle="I Moduli di Celestec"
+      modulesSubtitle="Un ecosistema strutturato per guidare le destinazioni dalla visione strategica all'esecuzione operativa."
       tabs={[
         {
-          id: "Fase 1",
-          title: "Strategia & Identità",
+          id: "Business",
+          title: "Business Modeling",
           icon: <Target className="w-6 h-6" />,
-          description: "Gettare le fondamenta: definire il 'North Star' e l'identità della destinazione.",
+          description: "Allineare gli stakeholder e definire il potenziale della destinazione.",
           items: [
-            { name: "Moonshot Statement", desc: "Cristallizza la missione e il messaggio narrativo (Mission, Mechanism, Milestone)." },
-            { name: "Positioning", desc: "Affina la promessa del brand e occupa uno spazio mentale unico ('Onlyness Statement')." },
-            { name: "Corporate Identity", desc: "Traduce la strategia in asset visivi e riconoscibilità immediata." }
+            { name: "Vision", desc: "Esprime l'ambizione di lungo periodo in una frase chiara, facilitando l'allineamento degli stakeholder e rassicurando sulla coerenza strategica." },
+            { name: "10 Years Roadmap", desc: "Mostra tappe e priorità con metriche di successo; il team vede che ogni step è collegato a un outcome." },
+            { name: "Tourism Asset Analysis", desc: "Identifica attrazioni, servizi e flussi; mostra chiaramente dove c'è domanda latente e dove mancano offerte." },
+            { name: "Personas dei Clienti", desc: "Individua il pubblico target e i segmenti di clientela." },
+            { name: "Value for Our Customers", desc: "Descrive i vantaggi unici che ogni progetto offre ai clienti." },
+            { name: "Surveys", desc: "Raccoglie input e opinioni dagli stakeholder." }
           ]
         },
         {
-          id: "Fase 2",
-          title: "Mercato & Persone",
-          icon: <Users className="w-6 h-6" />,
-          description: "Capire e Validare: decisioni basate sui dati, non sulle supposizioni.",
-          items: [
-            { name: "Customer Personas", desc: "Profili profondi con 'Jobs-to-be-done', paure e trigger decisionali." },
-            { name: "Insight Surveys", desc: "Cicli rapidi di validazione per decisioni guidate dalle ipotesi." },
-            { name: "Market Research", desc: "Sintesi di TAM/SAM/SOM e movimenti dei competitor." }
-          ]
-        },
-        {
-          id: "Fase 3",
-          title: "Prodotto & Valore",
+          id: "Product",
+          title: "Product Modeling",
           icon: <Box className="w-6 h-6" />,
-          description: "Creare Valore: trasformare gli insight in prodotti turistici differenzianti.",
+          description: "Sviluppare offerte turistiche basate sui dati e differenziarsi dalla concorrenza.",
           items: [
-            { name: "Value Proposition", desc: "Converte i pain point in promesse di valore nitide (Pain → Claim → Proof)." },
-            { name: "Competitor Intelligence", desc: "Analizza le debolezze della concorrenza per un posizionamento chiaro." },
-            { name: "Product Development", desc: "Dalle specifiche ai prototipi di esperienze, fino ai piani di test." }
+            { name: "Prototype Development", desc: "Si concentra sulla creazione dei concetti di prodotto iniziali e dei prototipi." },
+            { name: "Market Insights", desc: "Quantifica segmenti e willingness to pay; consente di decidere con dati, non con opinioni." },
+            { name: "Competition", desc: "Confronta feature, pricing e canali; aiuta a visualizzare in che cosa differenziarsi." },
+            { name: "Operational Foundations", desc: "Dettaglia le strutture e i sistemi fondamentali vitali per il buon funzionamento dell'attività." }
           ]
         },
         {
-          id: "Fase 4",
-          title: "Esecuzione & Ops",
-          icon: <Rocket className="w-6 h-6" />,
-          description: "Mettere a terra: scalare e gestire l'operatività quotidiana.",
+          id: "Management",
+          title: "Management",
+          icon: <Briefcase className="w-6 h-6" />,
+          description: "Strutturare l'implementazione e gestire le risorse in modo efficiente.",
           items: [
-            { name: "Financial Projections", desc: "P&L, Bilancio, Cashflow e analisi di sensibilità stile VC." },
-            { name: "Legal & Contracts", desc: "Generazione contratti basata sui dati di progetto per ridurre frizioni." },
-            { name: "Task Management", desc: "Viste Gantt e Playbook (Agile, OKR) connessi direttamente alla strategia." }
+            { name: "Action Plan", desc: "Presenta un insieme strutturato di passaggi strategici per l'implementazione." },
+            { name: "Task Management", desc: "Gestisce gli incarichi, le loro interdipendenze e le responsabilità." },
+            { name: "Competency Mapping & Matching", desc: "Definisce le competenze necessarie per il progetto e aiuta a trovare le risorse giuste." }
+          ]
+        },
+        {
+          id: "Finance",
+          title: "Finance & Legal",
+          icon: <LineChart className="w-6 h-6" />,
+          description: "Garantire la sostenibilità economica e la conformità legale dei progetti.",
+          items: [
+            { name: "Financial Outlook", desc: "Scenari con business plan e cash flow; mostrano la sostenibilità economica e la resilienza a variazioni di mercato." },
+            { name: "Legal", desc: "Comporta la preparazione e la finalizzazione dei moduli e degli accordi legali di un progetto." },
+            { name: "Contributions", desc: "Mappa incentivi/contributi e condizioni; aiuta a ridurre il costo netto e a decidere più velocemente." },
+            { name: "Equity Strategy", desc: "Definisce la strategia di partecipazione azionaria e incentivi per i dipendenti, allineando gli interessi a lungo termine." }
+          ]
+        },
+        {
+          id: "Brand",
+          title: "Brand Development",
+          icon: <Compass className="w-6 h-6" />,
+          description: "Costruire un'identità forte e coerente per la destinazione.",
+          items: [
+            { name: "Positioning", desc: "Definisce la promessa distintiva e i proof point; rende facile comunicare internamente 'perché noi'." },
+            { name: "Designing the Brand", desc: "CI (Corporate Identity): linee guida visual e tonali legate alle emozioni e ai proof point rilevanti per le personas." }
+          ]
+        },
+        {
+          id: "Marketing",
+          title: "Marketing e PR",
+          icon: <Megaphone className="w-6 h-6" />,
+          description: "Comunicare il valore e misurare l'impatto sul mercato.",
+          items: [
+            { name: "Go-to-Market Strategy", desc: "Campagne orientate ai momenti della customer journey con metriche di impatto; facilita la misurazione del contributo alle vendite." },
+            { name: "Content Production", desc: "Contenuti per educare, rassicurare e far emergere il valore; riduce le obiezioni tipiche e accelera i cicli di vendita." }
           ]
         }
       ]}
@@ -1573,6 +1602,7 @@ export default function App() {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [isCelestecOpen, setIsCelestecOpen] = useState(false);
   const [isDestinovaOpen, setIsDestinovaOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleOpenCalendar = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -1606,33 +1636,72 @@ export default function App() {
 
       <div className="relative z-10">
         {/* Navigation */}
-        <nav className="container mx-auto px-6 py-6 flex justify-between items-center">
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="font-display font-bold text-2xl tracking-tight flex items-center gap-1"
-          >
-            {content.hero.name.split(' ').map(n => n[0]).join('')}<span className="text-[#45e5ed]">.</span>
-          </motion.div>
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <a 
-              href={content.hero.calendarLink}
-              onClick={handleOpenCalendar}
-              className="px-6 py-2.5 rounded-full border border-[#d7d8d8] hover:border-[#263647] transition-colors text-sm font-medium flex items-center gap-2"
+        <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-[#d7d8d8]/50">
+          <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              className="font-display font-bold text-2xl tracking-tight flex items-center gap-1"
             >
-              <Calendar className="w-4 h-4" />
-              <span className="hidden sm:inline">Prenota Call</span>
-            </a>
-          </motion.div>
+              <a href="#hero">{content.hero.name.split(' ').map(n => n[0]).join('')}<span className="text-[#45e5ed]">.</span></a>
+            </motion.div>
+            
+            <div className="hidden md:flex items-center gap-8 text-sm font-medium text-[#263647]/80">
+              <a href="#hero" className="hover:text-[#45e5ed] transition-colors">Hero</a>
+              <a href="#assessment" className="hover:text-[#45e5ed] transition-colors">Assessment</a>
+              <a href="#ecosistema" className="hover:text-[#45e5ed] transition-colors">Ecosistema</a>
+              <a href="#about" className="hover:text-[#45e5ed] transition-colors">Chi Sono</a>
+              <a href="#servizi" className="hover:text-[#45e5ed] transition-colors">Servizi</a>
+              <a href="#contact" className="hover:text-[#45e5ed] transition-colors">Contatti</a>
+            </div>
+
+            <motion.div 
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              className="hidden md:block"
+            >
+              <a 
+                href={content.hero.calendarLink}
+                onClick={handleOpenCalendar}
+                className="px-6 py-2.5 rounded-full border border-[#d7d8d8] hover:border-[#263647] transition-colors text-sm font-medium flex items-center gap-2 bg-white"
+              >
+                <Calendar className="w-4 h-4" />
+                <span className="hidden sm:inline">Prenota Call</span>
+              </a>
+            </motion.div>
+
+            <div className="md:hidden flex items-center">
+              <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-[#263647] p-2">
+                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile Menu */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden absolute top-full left-0 right-0 bg-white border-b border-[#d7d8d8]/50 shadow-lg py-4 px-6 flex flex-col gap-4">
+              <a href="#hero" onClick={() => setIsMobileMenuOpen(false)} className="text-[#263647] font-medium py-2 border-b border-gray-100">Hero</a>
+              <a href="#assessment" onClick={() => setIsMobileMenuOpen(false)} className="text-[#263647] font-medium py-2 border-b border-gray-100">Assessment</a>
+              <a href="#ecosistema" onClick={() => setIsMobileMenuOpen(false)} className="text-[#263647] font-medium py-2 border-b border-gray-100">Ecosistema</a>
+              <a href="#about" onClick={() => setIsMobileMenuOpen(false)} className="text-[#263647] font-medium py-2 border-b border-gray-100">Chi Sono</a>
+              <a href="#servizi" onClick={() => setIsMobileMenuOpen(false)} className="text-[#263647] font-medium py-2 border-b border-gray-100">Servizi</a>
+              <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} className="text-[#263647] font-medium py-2 border-b border-gray-100">Contatti</a>
+              <a 
+                href={content.hero.calendarLink}
+                onClick={(e) => { setIsMobileMenuOpen(false); handleOpenCalendar(e); }}
+                className="mt-2 px-6 py-3 rounded-full bg-[#263647] text-white text-center font-medium flex items-center justify-center gap-2"
+              >
+                <Calendar className="w-4 h-4" />
+                Prenota Call
+              </a>
+            </div>
+          )}
         </nav>
 
         {/* Hero Section */}
-        <section className="container mx-auto px-6 pt-20 pb-32 md:pt-28 md:pb-40 flex flex-col items-center text-center">
+        <section id="hero" className="container mx-auto px-6 pt-20 pb-32 md:pt-28 md:pb-40 flex flex-col items-center text-center">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -1709,7 +1778,7 @@ export default function App() {
         </section>
 
         {/* L'Ecosistema di Trasformazione */}
-        <section className="py-32 border-t border-[#d7d8d8]/50 bg-[#f8f9fa] overflow-hidden">
+        <section id="ecosistema" className="py-32 border-t border-[#d7d8d8]/50 bg-[#f8f9fa] overflow-hidden">
           <div className="container mx-auto px-6">
             <div className="text-center max-w-3xl mx-auto mb-16">
               <h2 className="text-3xl md:text-5xl font-display font-semibold mb-6">{content.ecosystem.title}</h2>
@@ -1933,7 +2002,7 @@ export default function App() {
         </section>
 
         {/* Servizi Core */}
-        <section className="py-32 border-t border-[#d7d8d8]/50 bg-[#f8f9fa]">
+        <section id="servizi" className="py-32 border-t border-[#d7d8d8]/50 bg-[#f8f9fa]">
           <div className="container mx-auto px-6">
             <div className="text-center max-w-2xl mx-auto mb-20">
               <h2 className="text-3xl md:text-5xl font-display font-semibold mb-6">{content.services.title}</h2>
