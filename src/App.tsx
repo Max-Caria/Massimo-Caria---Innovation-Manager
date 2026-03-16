@@ -1175,6 +1175,7 @@ function AuditTool({ onOpenCalendar }: { onOpenCalendar: (e: React.MouseEvent) =
   const [showCustomInput, setShowCustomInput] = useState(false);
   const [showLeadForm, setShowLeadForm] = useState(false);
   const [leadData, setLeadData] = useState({ name: "", email: "", company: "" });
+  const [formError, setFormError] = useState("");
   const [isSubmittingLead, setIsSubmittingLead] = useState(false);
 
   // Filter steps based on conditions
@@ -1213,6 +1214,20 @@ function AuditTool({ onOpenCalendar }: { onOpenCalendar: (e: React.MouseEvent) =
 
   const handleLeadSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setFormError("");
+
+    // Client-side validation
+    if (!leadData.name.trim() || !leadData.email.trim() || !leadData.company.trim()) {
+      setFormError("Per favore, compila tutti i campi obbligatori (Nome, Email e Azienda).");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(leadData.email)) {
+      setFormError("Per favore, inserisci un indirizzo email valido.");
+      return;
+    }
+
     setIsSubmittingLead(true);
     
     // URL del Webhook (Sostituisci con l'URL del tuo Google Apps Script o Make.com)
@@ -1368,37 +1383,53 @@ function AuditTool({ onOpenCalendar }: { onOpenCalendar: (e: React.MouseEvent) =
         <p className="text-[#263647]/70 mb-8">
           Inserisci i tuoi dati per ricevere i risultati dell'analisi e scoprire il livello di maturità digitale della tua destinazione.
         </p>
+
+        {formError && (
+          <div className="mb-6 p-4 bg-red-50 border border-red-100 text-red-600 rounded-xl text-sm font-medium">
+            {formError}
+          </div>
+        )}
         
         <form onSubmit={handleLeadSubmit} className="space-y-4 text-left">
           <div>
-            <label className="block text-sm font-bold text-[#263647] mb-2">Nome e Cognome</label>
+            <label className="block text-sm font-bold text-[#263647] mb-2">Nome e Cognome *</label>
             <input 
               type="text" 
               required
               value={leadData.name}
-              onChange={(e) => setLeadData({...leadData, name: e.target.value})}
-              className="w-full p-4 rounded-xl border border-[#d7d8d8] focus:border-[#45e5ed] focus:ring-1 focus:ring-[#45e5ed] outline-none transition-all"
+              onChange={(e) => {
+                setLeadData({...leadData, name: e.target.value});
+                if (formError) setFormError("");
+              }}
+              className={`w-full p-4 rounded-xl border ${formError && !leadData.name.trim() ? 'border-red-300' : 'border-[#d7d8d8]'} focus:border-[#45e5ed] focus:ring-1 focus:ring-[#45e5ed] outline-none transition-all`}
               placeholder="Mario Rossi"
             />
           </div>
           <div>
-            <label className="block text-sm font-bold text-[#263647] mb-2">Email</label>
+            <label className="block text-sm font-bold text-[#263647] mb-2">Email *</label>
             <input 
               type="email" 
               required
               value={leadData.email}
-              onChange={(e) => setLeadData({...leadData, email: e.target.value})}
-              className="w-full p-4 rounded-xl border border-[#d7d8d8] focus:border-[#45e5ed] focus:ring-1 focus:ring-[#45e5ed] outline-none transition-all"
+              onChange={(e) => {
+                setLeadData({...leadData, email: e.target.value});
+                if (formError) setFormError("");
+              }}
+              className={`w-full p-4 rounded-xl border ${formError && (!leadData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(leadData.email)) ? 'border-red-300' : 'border-[#d7d8d8]'} focus:border-[#45e5ed] focus:ring-1 focus:ring-[#45e5ed] outline-none transition-all`}
               placeholder="mario.rossi@email.com"
             />
           </div>
           <div>
-            <label className="block text-sm font-bold text-[#263647] mb-2">Ente / Azienda</label>
+            <label className="block text-sm font-bold text-[#263647] mb-2">Ente / Azienda *</label>
             <input 
               type="text" 
+              required
               value={leadData.company}
-              onChange={(e) => setLeadData({...leadData, company: e.target.value})}
-              className="w-full p-4 rounded-xl border border-[#d7d8d8] focus:border-[#45e5ed] focus:ring-1 focus:ring-[#45e5ed] outline-none transition-all"
+              onChange={(e) => {
+                setLeadData({...leadData, company: e.target.value});
+                if (formError) setFormError("");
+              }}
+              className={`w-full p-4 rounded-xl border ${formError && !leadData.company.trim() ? 'border-red-300' : 'border-[#d7d8d8]'} focus:border-[#45e5ed] focus:ring-1 focus:ring-[#45e5ed] outline-none transition-all`}
               placeholder="Nome della tua organizzazione"
             />
           </div>
