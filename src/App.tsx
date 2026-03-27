@@ -1879,7 +1879,7 @@ export default function App() {
                   <div className="relative">
                     <div className="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-white border-4 border-[#d7d8d8]"></div>
                     <h4 className="text-lg font-bold text-[#263647]">Factory</h4>
-                    <p className="text-sm text-[#263647]/40 font-bold uppercase tracking-wider mb-2">2022 - 2023</p>
+                    <p className="text-sm text-[#263647]/40 font-bold uppercase tracking-wider mb-2">2022 - PRESENTE</p>
                     <p className="text-[#263647]/70 text-sm leading-relaxed">
                       Business Development Manager. Espansione dell'ecosistema digitale per destinazioni e gestione relazioni B2B/B2G.
                     </p>
@@ -2146,7 +2146,7 @@ export default function App() {
             </div>
 
             {/* Ecosystem Cards */}
-            <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-20">
+            <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-20">
               <button 
                 onClick={() => setIsCelestecOpen(true)}
                 className="group p-8 rounded-3xl bg-white border border-[#d7d8d8] hover:border-blue-300 hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 text-left relative overflow-hidden"
@@ -2172,6 +2172,21 @@ export default function App() {
                   Esplora l'Academy <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </div>
               </button>
+
+              <a 
+                href="https://factory.it/it/tourism"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group p-8 rounded-3xl bg-white border border-[#d7d8d8] hover:border-[#E51346] hover:shadow-xl hover:shadow-[#E51346]/10 transition-all duration-300 text-left relative overflow-hidden block"
+              >
+                <div className="absolute top-0 right-0 w-32 h-32 bg-[#E51346]/5 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
+                <Code className="w-10 h-10 text-[#E51346] mb-6 relative z-10" />
+                <h3 className="text-2xl font-display font-bold text-slate-900 mb-2 relative z-10">Factory | Digital Trasformation Hub</h3>
+                <p className="text-slate-600 mb-8 relative z-10 text-sm">Scopri l'ecosistema digitale che fornisce un framework integrato AI Driven per la gestione di dati ed esperienze all'interno delle destinazioni turistiche.</p>
+                <div className="flex items-center gap-2 text-[#E51346] font-bold text-sm uppercase tracking-widest relative z-10">
+                  Visita il sito <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </a>
             </div>
             
             <div className="pt-8 border-t border-[#d7d8d8] flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-[#263647]/60">
