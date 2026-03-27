@@ -2149,26 +2149,26 @@ export default function App() {
             <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-20">
               <button 
                 onClick={() => setIsCelestecOpen(true)}
-                className="group p-8 rounded-3xl bg-white border border-[#d7d8d8] hover:border-blue-300 hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 text-left relative overflow-hidden"
+                className="group p-8 rounded-3xl bg-white border border-blue-500/30 hover:border-blue-500 hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 text-left relative overflow-hidden flex flex-col h-full"
               >
                 <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
-                <Sparkles className="w-10 h-10 text-blue-600 mb-6 relative z-10" />
-                <h3 className="text-2xl font-display font-bold text-slate-900 mb-2 relative z-10">Celestec AI</h3>
-                <p className="text-slate-600 mb-8 relative z-10">Piattaforma Enterprise per la gestione collaborativa e l'innovazione sostenibile nelle destinazioni turistiche.</p>
-                <div className="flex items-center gap-2 text-blue-600 font-bold text-sm uppercase tracking-widest relative z-10">
+                <Sparkles className="w-10 h-10 text-blue-600 mb-6 relative z-10 shrink-0" />
+                <h3 className="text-2xl font-sans font-bold text-[#263647] mb-4 relative z-10 shrink-0">Celestec AI</h3>
+                <p className="text-[#263647]/70 mb-8 relative z-10 text-base leading-relaxed flex-grow">Piattaforma Enterprise per la gestione collaborativa e l'innovazione sostenibile nelle destinazioni turistiche.</p>
+                <div className="flex items-center gap-2 text-blue-600 font-bold text-sm uppercase tracking-widest relative z-10 shrink-0 mt-auto">
                   Scopri la piattaforma <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </div>
               </button>
 
               <button 
                 onClick={() => setIsDestinovaOpen(true)}
-                className="group p-8 rounded-3xl bg-white border border-[#d7d8d8] hover:border-[#45e5ed] hover:shadow-xl hover:shadow-[#45e5ed]/10 transition-all duration-300 text-left relative overflow-hidden"
+                className="group p-8 rounded-3xl bg-white border border-[#45e5ed] hover:shadow-xl hover:shadow-[#45e5ed]/10 transition-all duration-300 text-left relative overflow-hidden flex flex-col h-full"
               >
                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#45e5ed]/10 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
-                <Globe className="w-10 h-10 text-[#45e5ed] mb-6 relative z-10" />
-                <h3 className="text-2xl font-display font-bold text-[#263647] mb-2 relative z-10">Destinova | Academy</h3>
-                <p className="text-[#263647]/70 mb-8 relative z-10">Il nuovo ecosistema formativo digitale interamente dedicato a destinazioni e territori</p>
-                <div className="flex items-center gap-2 text-[#45e5ed] font-bold text-sm uppercase tracking-widest relative z-10">
+                <Globe className="w-10 h-10 text-[#45e5ed] mb-6 relative z-10 shrink-0" />
+                <h3 className="text-2xl font-sans font-bold text-[#263647] mb-4 relative z-10 shrink-0">Destinova | Academy</h3>
+                <p className="text-[#263647]/70 mb-8 relative z-10 text-base leading-relaxed flex-grow">Il nuovo ecosistema formativo digitale interamente dedicato a destinazioni e territori.</p>
+                <div className="flex items-center gap-2 text-[#45e5ed] font-bold text-sm uppercase tracking-widest relative z-10 shrink-0 mt-auto">
                   Esplora l'Academy <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </div>
               </button>
@@ -2177,13 +2177,13 @@ export default function App() {
                 href="https://factory.it/it/tourism"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group p-8 rounded-3xl bg-white border border-[#d7d8d8] hover:border-[#E51346] hover:shadow-xl hover:shadow-[#E51346]/10 transition-all duration-300 text-left relative overflow-hidden block"
+                className="group p-8 rounded-3xl bg-white border border-[#E51346]/30 hover:border-[#E51346] hover:shadow-xl hover:shadow-[#E51346]/10 transition-all duration-300 text-left relative overflow-hidden flex flex-col h-full"
               >
                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#E51346]/5 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
-                <Code className="w-10 h-10 text-[#E51346] mb-6 relative z-10" />
-                <h3 className="text-2xl font-display font-bold text-slate-900 mb-2 relative z-10">Factory | Digital Trasformation Hub</h3>
-                <p className="text-slate-600 mb-8 relative z-10 text-sm">Scopri l'ecosistema digitale che fornisce un framework integrato AI Driven per la gestione di dati ed esperienze all'interno delle destinazioni turistiche.</p>
-                <div className="flex items-center gap-2 text-[#E51346] font-bold text-sm uppercase tracking-widest relative z-10">
+                <Code className="w-10 h-10 text-[#E51346] mb-6 relative z-10 shrink-0" />
+                <h3 className="text-2xl font-sans font-bold text-[#263647] mb-4 relative z-10 shrink-0">Factory | Digital Trasformation Hub</h3>
+                <p className="text-[#263647]/70 mb-8 relative z-10 text-base leading-relaxed flex-grow">Scopri l'ecosistema digitale che fornisce un framework integrato AI Driven per la gestione di dati ed esperienze all'interno delle destinazioni turistiche.</p>
+                <div className="flex items-center gap-2 text-[#E51346] font-bold text-sm uppercase tracking-widest relative z-10 shrink-0 mt-auto">
                   Visita il sito <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </div>
               </a>
